@@ -1,0 +1,78 @@
+spring:
+  profiles:
+    active: local
+  # DB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/show-product
+    username: root
+    password: 1234
+    p6spy:
+      enabled: true
+      appender: com.p6spy.engine.spy.appender.Slf4JLogger
+      logMessageFormat:
+        p6spy: "%(currentTime)|%(executionTime)|%(category)|%(sqlSingleLine)"
+  # JPA
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+  logging:
+    level:
+      org.hibernate.SQl: debug
+  #Swagger
+  springdoc:
+    packages-to-scan: com.adjh.springboot3tierform
+    default-consumes-media-type: application/json;charset=UTF-8
+    default-produces-media-type: application/json;charset=UTF-8
+    cache:
+      disabled: true
+    api-docs:
+      path: /api-docs/json
+      groups:
+        enabled: true
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
+      tags-sorter: alpha
+      operations-sorter: alpha
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  # DB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/show-product
+    username: root
+    password: 1234
+  # JPA
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+  logging:
+    level:
+      org.hibernate.SQl: debug
+  #Swagger
+  springdoc:
+    packages-to-scan: com.adjh.springboot3tierform
+    default-consumes-media-type: application/json;charset=UTF-8
+    default-produces-media-type: application/json;charset=UTF-8
+    cache:
+      disabled: true
+    api-docs:
+      path: /api-docs/json
+      groups:
+        enabled: true
+    swagger-ui:
+      enabled: true
+      path: /demo-ui.html
+      tags-sorter: alpha
+      operations-sorter: alpha
